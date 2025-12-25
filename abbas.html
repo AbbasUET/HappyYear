@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year, Zonaisha!</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #ff9ecb, #ffc8dd, #f5b0e7);
+        text-align: center;
+        color: white;
+        overflow-x: hidden;
+    }
+    .container {
+        padding: 50px 20px;
+    }
+    h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+        animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+        from {text-shadow: 0 0 10px #fff;}
+        to {text-shadow: 0 0 20px #ff4b8c;}
+    }
+    .button {
+        background: white;
+        color: #ff4b8c;
+        padding: 15px 30px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        border-radius: 40px;
+        border: none;
+        cursor: pointer;
+        margin-top: 30px;
+        transition: 0.3s;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .button:hover {
+        transform: scale(1.08);
+    }
+    #surprise {
+        display: none;
+        margin-top: 50px;
+        animation: fadeUp 1.5s forwards;
+    }
+    @keyframes fadeUp {
+        from {opacity: 0; transform: translateY(40px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    .emoji {
+        font-size: 2.6rem;
+        margin: 10px;
+        display: inline-block;
+    }
+
+    /* Floating hearts/flowers */
+    .float {
+        position: fixed;
+        bottom: -50px;
+        font-size: 2rem;
+        animation: floatUp 6s infinite ease-in;
+        opacity: 0.8;
+    }
+    @keyframes floatUp {
+        0% {transform: translateY(0) translateX(0);}
+        100% {transform: translateY(-120vh) translateX(20px);}
+    }
+
+    @media (max-width: 600px) {
+        h1 {font-size: 2rem;}
+        .button {font-size: 1.2rem; padding: 12px 25px;}
+        .emoji {font-size: 2.2rem;}
+    }
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio autoplay loop>
+  <source src="https://file-examples.com/storage/fe7e8bb/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3">
+</audio>
+
+<!-- 🎉 Confetti Canvas -->
+<canvas id="confetti"></canvas>
+
+<div class="container">
+    <h1>🎊 Click Here for a Surprise,<br>Zonaisha! 🎊</h1>
+    <button class="button" onclick="showSurprise()">✨ Open Surprise ✨</button>
+
+    <div id="surprise">
+        <h1>🎉 Happy New Year, Zonaisha! 🎉</h1>
+        <h2>May your year be full of happiness, success and love 💖</h2>
+        <div class="emoji">🎁🌹🌺🎉✨💖🌟🎆💐🎊</div>
+        <h2>You are Special! 💛</h2>
+    </div>
+</div>
+
+<!-- Floating Emojis -->
+<div class="float" style="left:10%;">🌹</div>
+<div class="float" style="left:30%; animation-delay:1s;">🎁</div>
+<div class="float" style="left:50%; animation-delay:2s;">💐</div>
+<div class="float" style="left:70%; animation-delay:3s;">🌺</div>
+<div class="float" style="left:85%; animation-delay:4s;">✨</div>
+
+<script>
+function showSurprise() {
+    document.getElementById("surprise").style.display = "block";
+    startConfetti();
+    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+}
+
+/* 🎊 Simple Confetti */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+let confettis = [];
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function startConfetti() {
+    for (let i = 0; i < 200; i++) {
+        confettis.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 6 + 2,
+            d: Math.random() * 10,
+        });
+    }
+    animateConfetti();
+}
+function animateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let c of confettis) {
+        ctx.beginPath();
+        ctx.fillStyle = `hsl(${Math.random()*360}, 100%, 70%)`;
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI*2, true);
+        ctx.fill();
+        c.y += Math.random() * 3;
+        if (c.y > canvas.height) c.y = 0;
+    }
+    requestAnimationFrame(animateConfetti);
+}
+</script>
+
+</body>
+</html>
